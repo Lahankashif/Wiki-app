@@ -5,7 +5,9 @@ export const Intro = () => {
   return (
     <>
       <div className="flex flex-col justify-center items-center text-center h-screen border-2 border-red-600">
-        <img src="/assets/logo.png" alt="logo" className="w-40 mb-6" /> 
+         <img src="/logo.png" alt="logo" />
+
+
 
         <div className="flex flex-col gap-4 w-64">  
           <button

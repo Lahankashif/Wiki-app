@@ -11,11 +11,11 @@ connectMongo()
 app.use(express.json())
 
 app.use(cors({
-    origin:'http://localhost:4000',
+    origin:true,
     credentials:true
 }))
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => res.send('Wiki API running'));
-app.use('/api/auth', authRoutes)
+app.use("/auth", authRoutes);
 app.use('/api/search', searchRoutes)
 app.listen(PORT, () => {console.log(`running on ${PORT}`);}) 

@@ -1,7 +1,13 @@
 import axios from "axios";
+// Example API call using fetch
+
+fetch(`${API_URL}/api/data`)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api", // your backend
+   baseURL: "https://wikiapp-c64a2.cloudfunctions.net/api",
 });
 
 // auth APIs
