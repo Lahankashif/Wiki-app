@@ -7,7 +7,7 @@ fetch(`${API_URL}/api/data`)
   .catch(err => console.error(err));
 
 const API = axios.create({
-   baseURL: "https://wikiapp-c64a2.cloudfunctions.net/api",
+   baseURL: "https://wiki-app-backend.vercel.app/api",
 });
 
 // auth APIs
