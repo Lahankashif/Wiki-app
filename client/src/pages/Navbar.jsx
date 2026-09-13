@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <header className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
@@ -28,18 +36,29 @@ export const Navbar = () => {
             >
               History
             </Link>
-            <Link
-              to="/login"
-              className="text-gray-700 hover:text-black font-medium"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="text-gray-700 hover:text-black font-medium"
-            >
-              Sign Up
-            </Link>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="text-gray-700 hover:text-black font-medium"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-gray-700 hover:text-black font-medium"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="text-gray-700 hover:text-black font-medium"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Toggle */}
@@ -90,18 +109,29 @@ export const Navbar = () => {
             >
               History
             </Link>
-            <Link
-              to="/login"
-              className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
-            >
-              Sign Up
-            </Link>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="block px-3 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}
