@@ -12,7 +12,7 @@ export const Intro = () => {
         <div className="flex flex-col gap-4 w-64">  
           <button
             type="button"
-            onClick={()=>navigate('/Login')}
+            onClick={()=>navigate('/login')}
             className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-black text-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
           >
             Log In
@@ -20,14 +20,14 @@ export const Intro = () => {
 
           <button
             type="button"
-            onClick={()=>navigate('/SignUp')}
+            onClick={()=>navigate('/signup')}
             className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-black bg-white text-black shadow-sm focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
           >
             Sign Up
           </button>
           <button
             type="button"
-            onClick={()=>navigate('/Search')}
+            onClick={()=>navigate('/search')}
             className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-black bg-white text-black shadow-sm focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
           >
             Search

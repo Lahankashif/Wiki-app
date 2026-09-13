@@ -14,7 +14,7 @@ export const Login = () => {
             const res = await loginUser({ email, password });
             localStorage.setItem("token", res.data.token);
             alert("Login successful");
-            navigate("/Search"); 
+            navigate("/search"); 
         } catch (err) {
             setError(err.response?.data?.message || "Login failed");
         }
@@ -81,7 +81,7 @@ export const Login = () => {
 
                 <button
                     type="button"
-                    onClick={() => navigate('/SignUp')}
+                    onClick={() => navigate('/signup')}
                     className="w-full py-2 px-4 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:outline-none"
                 >
                     Create Account
