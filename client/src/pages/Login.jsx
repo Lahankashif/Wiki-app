@@ -2,19 +2,20 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from "../api";  // adjust path based on your folder
+import { Modal } from "../components/Modal";
 
 export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const handleLogin = async (e) => {
         e.preventDefault(); // ✅ stops page reload
         setError("");
         try {
             const res = await loginUser({ email, password });
             localStorage.setItem("token", res.data.token);
-            alert("Login successful");
-            navigate("/search"); 
+            setShowModal(true);
         } catch (err) {
             setError(err.response?.data?.message || "Login failed");
         }
@@ -22,6 +23,7 @@ export const Login = () => {
 
     const navigate = useNavigate()
     return (
+        <>
         <div className="flex min-h-screen items-center justify-center bg-gray-100">
             <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
 
@@ -88,5 +90,13 @@ export const Login = () => {
                 </button>
             </div>
         </div>
+        <Modal
+            open={showModal}
+            title="Login Successful"
+            message="Welcome back!"
+            buttonText="Go to Search"
+            onClose={() => navigate("/search")}
+        />
+        </>
     );
 }
