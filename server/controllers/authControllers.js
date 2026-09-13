@@ -21,7 +21,7 @@ export const registerUser = async (req, res, next) => {
 
 
     } catch (error) {
-        next(err)
+        next(error)
     }
 }
 

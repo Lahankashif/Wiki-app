@@ -10,7 +10,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Brand */}
           <div className="flex items-center gap-2">
-            <img src="/assets/logo.png" alt="Wikipedia Logo" className="w-10 h-10" />
+            <img src="/logo.png" alt="Wikipedia Logo" className="w-10 h-10" />
             <span className="text-xl font-bold text-gray-900">Wikipedia</span>
           </div>
 

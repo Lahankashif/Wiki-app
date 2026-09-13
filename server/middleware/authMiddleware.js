@@ -13,6 +13,6 @@ export const authMiddleware = async (req, res, next) => {
         next()
 
     } catch (err) {
-        return res.status(500).json({ success: false, message: err.message })
+        return res.status(401).json({ success: false, message: err.message })
     }
 }

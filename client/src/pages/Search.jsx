@@ -17,7 +17,7 @@ export const Search = () => {
 
     return (
         <div className="flex flex-col items-center min-h-screen pt-28 px-6">
-            <img src="/assets/logo.png" alt="logo" className="w-40 mb-6" />
+            <img src="/logo.png" alt="logo" className="w-40 mb-6" />
             <h2 className="text-3xl font-bold mb-6">Search Wikipedia</h2>
             <div className="flex space-x-2 w-full max-w-lg">
                 <input

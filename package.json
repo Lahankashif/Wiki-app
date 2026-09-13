@@ -1,5 +1,15 @@
 {
+  "name": "wiki-app",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && npm install --prefix client && npm install --prefix server",
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "start": "concurrently -n server,client -c blue,green \"npm run start --prefix server\" \"npm run preview --prefix client\""
+  },
   "dependencies": {
+    "concurrently": "^9.2.0",
     "firebase": "^12.6.0"
   }
 }

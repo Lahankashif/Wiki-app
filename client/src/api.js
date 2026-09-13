@@ -1,13 +1,9 @@
 import axios from "axios";
-// Example API call using fetch
 
-fetch(`${API_URL}/api/data`)
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+const API_URL = import.meta.env.VITE_API_URL;
 
 const API = axios.create({
-   baseURL: "https://wiki-app-backend.vercel.app/api",
+   baseURL: API_URL,
 });
 
 // auth APIs
@@ -16,9 +12,9 @@ export const registerUser = (data) => API.post("/auth/register", data);
 
 // search APIs
 export const searchWikipedia = (query, token) =>
-  API.post("/search", { query }, {
+  API.post("/search", { query }, token ? {
     headers: { Authorization: `Bearer ${token}` }
-  });
+  } : undefined);
 
 export const getHistory = (token) =>
   API.get("/search/history", {

@@ -8,6 +8,9 @@ export const searchWikipedia = async (req, res, next) => {
         if (!query) return res.status(400).json({ success: false, message: 'Query Required' })
 
         const response = await axios.get('https://en.wikipedia.org/w/api.php', {
+            headers: {
+                'User-Agent': 'WikiSearchApp/1.0 (https://github.com/your-wiki-app; wiki-search-app@example.com)'
+            },
             params: {
                 action: 'query',
                 list: 'search',
@@ -18,11 +21,13 @@ export const searchWikipedia = async (req, res, next) => {
         })
         const results = response.data?.query?.search || []
 
-        await History.create({
-            user: req.user.id,
-            query,
-            resultsCount: results.length
-        })
+        if (req.user?.id) {
+            await History.create({
+                user: req.user.id,
+                query,
+                resultsCount: results.length
+            })
+        }
         res.json({ query, results })
 
     } catch (error) {
@@ -66,7 +71,7 @@ export const deleteHistoryItem = async (req, res, next) => {
 
 export const clearHistory = async (req, res, next) => {
   try {
-    await History.deleteMany({ user: req.user._id });
+    await History.deleteMany({ user: req.user.id });
     res.json({ message: 'All history cleared' });
   } catch (err) {
     next(err);
