@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../api"; 
+import { Navbar } from "./Navbar"; 
 
 export const History = () => {
   const [history, setHistory] = useState([]);
@@ -47,7 +48,9 @@ export const History = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 pt-28 px-6">
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-100 pt-28 px-6">
       <h2 className="text-3xl font-bold mb-6 text-center">Search History</h2>
 
       {history.length > 0 && (
@@ -87,5 +90,6 @@ export const History = () => {
         )}
       </div>
     </div>
+    </>
   );
 };
