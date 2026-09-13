@@ -16,6 +16,6 @@ app.use(cors({
 }))
 const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => res.send('Wiki API running'));
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use('/api/search', searchRoutes)
 app.listen(PORT, () => {console.log(`running on ${PORT}`);}) 
