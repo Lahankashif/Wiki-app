@@ -1,21 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../api"; 
-import { Navbar } from "./Navbar"; 
+import { Navbar } from "./Navbar";
 
 export const History = () => {
   const [history, setHistory] = useState([]);
+  const navigate = useNavigate();
+
+  const handleAuthError = (err) => {
+    if (err.response?.status === 401) {
+      localStorage.removeItem("token");
+      alert("Session expired, please login again");
+      navigate("/login");
+    } else {
+      console.error(err.response?.data || err.message);
+    }
+  };
 
   const fetchHistory = async () => {
     try {
       const token = localStorage.getItem("token"); 
-      console.log("Token:", token); // debug
       const res = await API.get("/search/history", {
         headers: { Authorization: `Bearer ${token}` }
       });
-      console.log("History response:", res.data); // debug
       setHistory(res.data);
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      handleAuthError(err);
     }
   };
 
@@ -27,7 +37,7 @@ export const History = () => {
       });
       setHistory(history.filter((item) => item._id !== id));
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      handleAuthError(err);
     }
   };
 
@@ -39,7 +49,7 @@ export const History = () => {
       });
       setHistory([]);
     } catch (err) {
-      console.error(err.response?.data || err.message);
+      handleAuthError(err);
     }
   };
 
