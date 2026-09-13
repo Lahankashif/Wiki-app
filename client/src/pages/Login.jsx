@@ -6,17 +6,17 @@ import { loginUser } from "../api";  // adjust path based on your folder
 export const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
     const handleLogin = async (e) => {
         e.preventDefault(); // ✅ stops page reload
-
+        setError("");
         try {
             const res = await loginUser({ email, password });
             localStorage.setItem("token", res.data.token);
             alert("Login successful");
             navigate("/Search"); 
         } catch (err) {
-            console.error(err.response?.data || err.message);
-            alert("Login failed");
+            setError(err.response?.data?.message || "Login failed");
         }
     };
 
@@ -30,6 +30,12 @@ export const Login = () => {
 
 
                 <form className="mt-6 space-y-4">
+
+                    {error && (
+                        <div className="bg-red-50 border border-red-300 text-red-700 text-sm rounded-lg p-3">
+                            {error}
+                        </div>
+                    )}
 
                     <div>
                         <label htmlFor="email" className="block text-sm font-medium text-gray-700">

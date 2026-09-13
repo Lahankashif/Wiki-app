@@ -6,18 +6,19 @@ export const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault(); // prevent page reload
+    setError("");
     try {
       await API.post("/auth/register", { name, email, password });
       alert("User registered!");
       navigate("/login"); // redirect after signup
     } catch (err) {
-      console.error(err.response?.data || err.message);
-      alert("Register failed");
+      setError(err.response?.data?.message || "Register failed");
     }
   };
 
@@ -28,6 +29,12 @@ export const SignUp = () => {
         <p className="text-gray-500 text-center mt-1">Sign up to get started </p>
 
         <form className="mt-6 space-y-4" onSubmit={handleRegister}>
+          {error && (
+            <div className="bg-red-50 border border-red-300 text-red-700 text-sm rounded-lg p-3">
+              {error}
+            </div>
+          )}
+
           {/* Full Name */}
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
