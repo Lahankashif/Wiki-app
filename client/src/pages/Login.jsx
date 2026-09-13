@@ -1,7 +1,6 @@
-import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from "../api";  // adjust path based on your folder
+import { loginUser } from "../api"; // adjust path based on your folder
 import { Modal } from "../components/Modal";
 
 export const Login = () => {
@@ -31,7 +30,7 @@ export const Login = () => {
                 <p className="text-gray-500 text-center mt-1">Welcome back! Please login to your account.</p>
 
 
-                <form className="mt-6 space-y-4">
+                <form className="mt-6 space-y-4" onSubmit={handleLogin}>
 
                     {error && (
                         <div className="bg-red-50 border border-red-300 text-red-700 text-sm rounded-lg p-3">
@@ -68,7 +67,6 @@ export const Login = () => {
                     </div>
                     <button
                         type="submit"
-                        onClick={handleLogin}
                         className="w-full py-2 px-4 bg-black text-white rounded-lg "
                     >
                         Login
@@ -94,7 +92,6 @@ export const Login = () => {
             open={showModal}
             title="Login Successful"
             message="Welcome back!"
-            buttonText="Go to Search"
             onClose={() => navigate("/search")}
         />
         </>

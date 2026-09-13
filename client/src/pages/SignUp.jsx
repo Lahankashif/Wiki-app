@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../api'; // make sure you import your API instance
 import { Modal } from "../components/Modal";
@@ -16,7 +16,8 @@ export const SignUp = () => {
     e.preventDefault(); // prevent page reload
     setError("");
     try {
-      await API.post("/auth/register", { name, email, password });
+      const res = await API.post("/auth/register", { name, email, password });
+      localStorage.setItem("token", res.data.token);
       setShowModal(true);
     } catch (err) {
       setError(err.response?.data?.message || "Register failed");
@@ -108,9 +109,8 @@ export const SignUp = () => {
       <Modal
         open={showModal}
         title="User Registered"
-        message={`Account created for ${name || "you"}! You can now login.`}
-        buttonText="Go to Login"
-        onClose={() => navigate("/login")}
+        message={`Account created for ${name || "you"}! Redirecting to search...`}
+        onClose={() => navigate("/search")}
       />
     </div>
   );

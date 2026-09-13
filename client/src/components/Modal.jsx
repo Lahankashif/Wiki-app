@@ -1,4 +1,13 @@
-export const Modal = ({ open, title, message, buttonText = "OK", onClose }) => {
+import { useEffect } from "react";
+
+export const Modal = ({ open, title, message, onClose }) => {
+  useEffect(() => {
+    if (!open) return;
+
+    const timeoutId = setTimeout(onClose, 2000);
+    return () => clearTimeout(timeoutId);
+  }, [open, onClose]);
+
   if (!open) return null;
 
   return (
@@ -7,12 +16,12 @@ export const Modal = ({ open, title, message, buttonText = "OK", onClose }) => {
       <div className="relative bg-white rounded-lg shadow-lg p-6 max-w-sm w-full mx-4">
         <h3 className="text-lg font-bold mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{message}</p>
-        <button
+        {/* <button
           onClick={onClose}
           className="w-full py-2 px-4 bg-black text-white rounded-lg hover:bg-gray-800"
         >
           {buttonText}
-        </button>
+        </button> */}
       </div>
     </div>
   );

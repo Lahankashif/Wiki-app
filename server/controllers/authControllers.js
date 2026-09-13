@@ -4,7 +4,8 @@ import { generateToken } from '../utils/token.js';
 
 export const registerUser = async (req, res, next) => {
     try {
-        const { email, password, name } = req.body;
+        const { password, name } = req.body;
+        const email = req.body.email?.trim().toLowerCase();
         if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
         const existing = await User.findOne({ email })
         if (existing) return res.status(400).json({ message: 'email already exist' })
@@ -17,6 +18,7 @@ export const registerUser = async (req, res, next) => {
             id: user._id,
             name: user.name,
             email: user.email,
+            token: generateToken(user._id),
         })
 
 
@@ -29,7 +31,9 @@ export const registerUser = async (req, res, next) => {
 
 export const loginUser = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        const { password } = req.body;
+        const email = req.body.email?.trim().toLowerCase();
+        if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
         const user = await User.findOne({ email });
         if (!user) return res.status(400).json({ message: 'Invalid Credentials' })
         const match = await bcrypt.compare(password, user.password)
