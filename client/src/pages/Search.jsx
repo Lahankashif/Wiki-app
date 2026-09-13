@@ -1,14 +1,11 @@
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { searchWikipedia } from "../api";
 import { Navbar } from "./Navbar";
 
 export const Search = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
-    const navigate = useNavigate();
-    const isLoggedIn = !!localStorage.getItem("token");
     const handleSearch = async () => {
         try {
             const token = localStorage.getItem("token");
@@ -35,14 +32,6 @@ export const Search = () => {
                 />
                 <button className="px-6 bg-black text-white rounded-lg hover:bg-gray-800" onClick={handleSearch}>Search</button>
             </div>
-            {isLoggedIn && (
-                <button
-                    onClick={() => navigate("/history")}
-                    className="mt-4 px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
-                >
-                    View History
-                </button>
-            )}
             {results.length > 0 && (
                 <div className="mt-8 w-full max-w-2xl space-y-3">
                     {results.map((item, index) => (
